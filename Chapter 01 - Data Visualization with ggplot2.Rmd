@@ -1,0 +1,97 @@
+---
+title: 'Chapter 1: Data Visualization with ggplot2'
+author: "Akil Elkamel"
+date: "6/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Importing packages
+
+In this chapter, we will use the package tidyverse. 
+
+So by loading tidyverse, the following packages will be loaded: ggplot2, tibble, tidyr, readr, purrr, and dplyr.
+
+```{r}
+library(tidyverse)
+```
+
+## The **mpg** dataset
+
+```{r}
+mpg
+```
+
+As shown above the **mpg** dataset is stored in the form of a tibble which is a modern reimagining of the data.frame. **mpg** is composed by 234 observations (in the rows) and 11 variables (in the columns). It contains observations collected by the US Environment Protection Agency on 38 models of cars.
+
+The variables of the **mpg** dataset are as follow:
+
+1. manufacturer: manufacturer name
+2. model: model name
+3. displ: engine displacement, in litres
+4. year:year of manufacture
+5. cyl: number of cylinders
+6. trans: type of transmission
+7. drv: the type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd
+8. cty: city miles per gallon
+9. hwy: highway miles per gallon
+10. fl: fuel type
+11. class: "type" of car
+
+
+## Visual exploration of the dataset
+
+
+```{r}
+ggplot(data = mpg) +
+    geom_point(mapping = aes(x = displ, y = cty))
+```
+
+The plot shows a negative relationship between engine size (displ) and fuel efficiency (cty). In other words, cars with big engines use more fuel inside the city.
+
+```{r}
+ggplot(data = mpg) +
+    geom_point(mapping = aes(x = displ, y = hwy))
+```
+The plot shows a negative relationship between engine size (displ) and fuel efficiency (hwy). In other words, cars with big engines use more fuel on the highway.
+
+
+Both above plots confirm the hypothesis about fuel efficiency and engine size. Which is "*The higher the engine size., the lower the fuel efficiency.*" and this inside the city and on the highway.
+
+
+
+The following plot shows the engine size **displ** versus the highway miles per gallon **hwy**. The data points are colored by the number of cylinders **cyl**.
+
+```{r}
+ggplot(data = mpg) +
+    geom_point(mapping = aes(x = displ, y = hwy, color = cyl))
+```
+
+To more distinguish the cars by the number of cylinders we can transform it as factor.
+
+```{r}
+ggplot(data = mpg) +
+    geom_point(mapping = aes(x = displ, y = hwy, color = factor(cyl)))
+```
+
+
+
+```{r}
+ggplot(data = mpg) +
+    geom_point(mapping = aes(x = displ, y = hwy, size = cyl, color = class)) +
+    facet_wrap(~ drv)
+```
+
+
+This plot shows the rear wheel drive cars (*drv = r*) possesse a number of cylinders greater than or equal to 6 and fall into three class categories (suv, subcompact and 2seater)  
+
+
+```{r}
+mpg %>% 
+    filter(drv == 'r') %>% 
+    distinct(class)
+```
+
