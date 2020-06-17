@@ -1,0 +1,31 @@
+---
+title: 'Chapter 1: Data Transformation with dplyr'
+author: "Akil Elkamel"
+date: "6/17/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Importing packages
+
+In this chapter, we will use the package tidyverse. 
+
+So by loading tidyverse, the following packages will be loaded: ggplot2, tibble, tidyr, readr, purrr, and dplyr.
+
+Also We’ll illustrate the key ideas using data from the **nycflights13** package. The data called **filghts** is data frame contains all 336,776 flights that departed from New York City in 2013. The data comes from the US Bureau of Transportation Statistics.
+
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+## Take a first look at the data
+
+```{r}
+flights
+```
+
